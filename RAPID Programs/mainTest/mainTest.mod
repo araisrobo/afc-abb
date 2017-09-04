@@ -1,28 +1,10 @@
 MODULE mainTest
-
-    ! for simulation:
-    ! PERS tooldata TCORNER := [TRUE,[[147.8,10,55],[4.32963728535968E-17,-0.707106781186547,-4.32963728535968E-17,-0.707106781186548]],[3,[0,0,1E-11],[1,0,0,0],0,0,0]];
-    PERS tooldata TCORNER := [TRUE,[[154.8,0,42],[0,-0.707106781,0,-0.707106781]],[3,[0,0,0.00001],[1,0,0,0],0,0,0]];
-    ! PERS tooldata FaceTCP := [TRUE,[[157.8,0,42],[0,-0.707106781,0,-0.707106781]],[3,[0,0,0.00001],[1,0,0,0],0,0,0]];
-    PERS tooldata AGS01Tool := [TRUE,[[154.8,0,62],[0,-0.707106781,0,-0.707106781]],[3,[0,0,0.00001],[1,0,0,0],0,0,0]];
-    PERS tooldata AGS01TCP := [TRUE,[[154.8,0,42],[0,-0.707106781,0,-0.707106781]],[3,[0,0,0.00001],[1,0,0,0],0,0,0]];
-    PERS tooldata FaceTCP := [TRUE,[[154.8,0,42],[0,-0.707106781,0,-0.707106781]],[3,[0,0,0.00001],[1,0,0,0],0,0,0]];
-    
-    PERS wobjdata Workobject_1 := [FALSE,TRUE,"",[[591.659,-166.943,423.004],[0.5,-0.5,-0.5,0.5]],[[0,0,0],[1,0,0,0]]];
-    VAR speeddata vLinear := [110,90,5000,50];
-    VAR speeddata vLinear1 := [110,90,5000,50];
-    VAR speeddata vLinear2 := [110,90,5000,50];
-    VAR speeddata vAngular := [5,72,5000,50];
-    VAR speeddata vAngular1 := [5,72,5000,50];
-    VAR speeddata vTraverse := [110,400,5000,50]; ! for internal use, same as vLinear
-    VAR speeddata vTraverse1 := [150,400,5000,50]; ! for begin and end
-    
     VAR intnum sig1int; ! TODO: test EVENT_STOP
     
     VAR iodev commLog;
     VAR socketdev ags_socket;
     ! CONST string IPAddress:="10.1.2.2";  ! pi16
-    CONST string IPAddress:="10.1.2.12";  ! interlaken
+    CONST string IPAddress:="10.1.1.180";  ! interlaken
     CONST num PortNum:=6000;
     VAR num Call_NB_temp:=0;
     VAR num run_cycle:=0;
@@ -41,25 +23,7 @@ MODULE mainTest
     VAR string proc_finish;
     
     PROC main()
-!        CONNECT sig1int WITH stop_routine;
-!        ISignalDO EVENT_STOP, 1, sig1int;
-
-!        Load \Dynamic, mFilePath\File:="a_mt100_175.mod";
-!        Load \Dynamic, mFilePath\File:="a_TargetDef.mod";
-!        Load \Dynamic, mFilePath\File:="localTargetDef.mod";
-!        %"localTargetDef:goto_S0_Begin"%;
-!        %"a_mt100_175:s0_side"%;
-!        %"localTargetDef:finish_grind_sim"%;
-!        UnLoad mFilePath\File:="a_mt100_175.mod";
-!        UnLoad mFilePath\File:="a_TargetDef.mod";
-!        UnLoad mFilePath\File:="localTargetDef.mod";
-
-!        Load \Dynamic, mFilePath\File:="b_mt100_175.mod";
-!        Load \Dynamic, mFilePath\File:="b1_mt100_175.mod";
-!        Load \Dynamic, mFilePath\File:="b_TargetDef.mod";
-!        Load \Dynamic, mFilePath\File:="localTargetDef.mod";
-        
-        ! server_recovery;
+        server_recovery;
         Open "HOME:" \File:= "socketComm.log", commLog \Write;
         Write commLog, "PC(Master) connected...";
 
@@ -82,42 +46,7 @@ MODULE mainTest
         %proc_grind%;
         %proc_finish%;
         %proc_unloadFiles%;
-        !%"localTargetDef:goto_B_Begin"%;
-        !!%"b_mt100_175:b_side"%;
-        !%"b1_mt100_175:b1_side"%;
-        !%"localTargetDef:finish_B_sim"%;
-        !%"b_utils:unloadFiles"%;
         UnLoad filePath\File:=fileName;
-
-!        UnLoad mFilePath\File:="b_mt100_175.mod";
-!        UnLoad mFilePath\File:="b1_mt100_175.mod";
-!        UnLoad mFilePath\File:="b_TargetDef.mod";
-!        UnLoad mFilePath\File:="localTargetDef.mod";
-        
-!       for ec38_f5_isis_170:
-!        Load \Dynamic, mFilePath\File:="a_ec38_f5_isis_170.mod";
-!        Load \Dynamic, mFilePath\File:="a_TargetDef.mod";
-!        Load \Dynamic, mFilePath\File:="localTargetDef.mod";
-        
-        ! %"a_ec38_f5_isis_170:grind"%;
-        ! %"b_ec38_f5_isis_170:face"%;
-        ! %"localTargetDef:sideToFace"%;
-        ! %"b_ec38_f5_isis_170:face"%;
-        ! %"localTargetDef:finish_grind_sim"%;
-        
-!        %"localTargetDef:beginToFace"%;
-!        %"b_ec38_f5_isis_170:s4_face"%;
-!        %"localTargetDef:finish_polish_sim"%;
-!        %"c_ec38_f5_isis_170:face"%;
-!        %"localTargetDef:finish_face_sim"%;
-        
-!        UnLoad mFilePath\File:="a_ec38_f5_isis_170.mod";
-!        UnLoad mFilePath\File:="a_TargetDef.mod";
-!        UnLoad mFilePath\File:="b_ec38_f5_isis_170.mod";
-!        UnLoad mFilePath\File:="b_TargetDef.mod";
-!        UnLoad mFilePath\File:="c_ec38_f5_isis_170.mod";
-!        UnLoad mFilePath\File:="c_TargetDef.mod";
-!        UnLoad mFilePath\File:="localTargetDef.mod";
     ENDPROC
     
     TRAP stop_routine

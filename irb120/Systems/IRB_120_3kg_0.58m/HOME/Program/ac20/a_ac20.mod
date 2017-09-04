@@ -248,7 +248,7 @@ MoveL TOL0_225T1, v100, z5, AGS01Tool \wobj:=Workobject_1 ;
 MoveL TOL0_226T1, v100, z5, AGS01Tool \wobj:=Workobject_1 ;
 MoveC TOL0_227T1, TOL0_227T2, v100, z5, AGS01Tool \wobj:=Workobject_1 ;
 MoveC TOL0_228T1, TOL0_228T2, v200, z5, AGS01Tool \wobj:=Workobject_1 ;
-UnLoad FilePath\File:="TargetDef.mod";
+! UnLoad FilePath\File:="TargetDef.mod";
   ConfL\Off;
 ENDPROC
 ENDMODULE
